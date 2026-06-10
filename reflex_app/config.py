@@ -1,0 +1,64 @@
+"""Runtime settings sourced from the environment.
+
+Keys are read lazily so the app can boot (and show friendly errors) even when
+some are missing. See `.env.example` for the full list.
+"""
+
+from __future__ import annotations
+
+import os
+
+# --- LLM ---
+ANTHROPIC_MODEL = "claude-opus-4-8"
+
+
+def anthropic_api_key() -> str | None:
+    return os.environ.get("ANTHROPIC_API_KEY") or None
+
+
+# --- Media search ---
+def pexels_api_key() -> str | None:
+    return os.environ.get("PEXELS_API_KEY") or None
+
+
+def pixabay_api_key() -> str | None:
+    return os.environ.get("PIXABAY_API_KEY") or None
+
+
+# --- Google OAuth ---
+# Where the frontend and backend are reachable (used to build OAuth redirects).
+FRONTEND_URL = os.environ.get("FRONTEND_URL", "http://localhost:3000")
+BACKEND_URL = os.environ.get("BACKEND_URL", "http://localhost:8000")
+GOOGLE_REDIRECT_URI = os.environ.get(
+    "GOOGLE_REDIRECT_URI", f"{BACKEND_URL}/auth/google/callback"
+)
+
+
+def google_client_id() -> str | None:
+    return os.environ.get("GOOGLE_CLIENT_ID") or None
+
+
+def google_client_secret() -> str | None:
+    return os.environ.get("GOOGLE_CLIENT_SECRET") or None
+
+
+def google_enabled() -> bool:
+    return bool(google_client_id() and google_client_secret())
+
+
+# --- Transcription ---
+WHISPER_MODEL_SIZE = os.environ.get("WHISPER_MODEL_SIZE", "base")
+
+# --- Pipeline defaults ---
+DEFAULT_SEGMENT_SECONDS = 15
+MIN_SEGMENT_SECONDS = 5
+MAX_SEGMENT_SECONDS = 60
+
+# How many media items to fetch per segment, per kind.
+MEDIA_PER_SEGMENT = 3
+
+# Accepted upload extensions (also enforced by rx.upload accept= dict).
+AUDIO_EXTENSIONS = [".mp3", ".wav", ".m4a", ".aac", ".ogg", ".flac", ".webm"]
+
+# Valid media-type selections offered in the UI.
+MEDIA_TYPES = ["images", "video", "both"]
