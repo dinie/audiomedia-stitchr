@@ -27,6 +27,18 @@ def _get_model():
     return _model
 
 
+def unload_model() -> None:
+    """Drop the cached model to reclaim its memory (e.g. before video compose).
+
+    The next transcription lazily reloads it (one-time cost).
+    """
+    global _model
+    _model = None
+    import gc
+
+    gc.collect()
+
+
 @dataclass
 class RawSegment:
     start: float

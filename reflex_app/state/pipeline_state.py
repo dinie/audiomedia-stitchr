@@ -304,6 +304,8 @@ class PipelineState(AppState):
                     "Rendering the final video — downloading media and encoding…"
                 )
             self._set_db_status(project_id, Status.COMPOSING)
+            # Free the resident Whisper model before the memory-heavy render.
+            await run_in_thread(transcription.unload_model)
             _plog("composing final video…")
 
             seg_media: list[video_compose.SegmentMedia] = []

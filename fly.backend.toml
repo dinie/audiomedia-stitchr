@@ -41,4 +41,6 @@ primary_region = "syd"
 
 [[vm]]
   size = "shared-cpu-2x"
-  memory = "2gb"
+  # 4GB gives headroom for the video-compose step (whisper is freed first; the
+  # renderer is now per-segment, so peak is well under this).
+  memory = "4gb"
