@@ -9,11 +9,12 @@ in the browser.
 Built with [Reflex](https://reflex.dev) (full-stack Python).
 
 
-Use it [here](https://audiomedia-frontend.fly.dev)
-
-A default user has been setup for QA: qa_admin / QaTest!2026
+Use it [here](https://audiomedia.arulnathan.org)
 
 Currently, sign in via Google only works for pre-approved users.
+
+Register a username and password, or use the passwordless sign-in feature to 
+login and start experimenting.
 
 ---
 
